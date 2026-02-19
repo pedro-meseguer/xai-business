@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XAI Decision Workspace</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar card">
+        <h1>XAI Workspace</h1>
+        <p class="muted">Gestiona usuarios, modelos y casos por persona para justificar decisiones críticas.</p>
+
+        <section>
+          <h2>Nuevo usuario</h2>
+          <input id="userName" placeholder="Nombre completo" />
+          <input id="userEmail" placeholder="email@empresa.eu" />
+          <button id="createUserBtn">Crear usuario</button>
+        </section>
+
+        <section>
+          <h2>Usuarios</h2>
+          <select id="userSelect"></select>
+        </section>
+
+        <section>
+          <h2>Nuevo modelo</h2>
+          <input id="modelName" placeholder="credit-risk-v5" />
+          <input id="modelObjective" placeholder="Objetivo del modelo" />
+          <input id="modelInputs" placeholder="edad, ingresos, deuda" />
+          <div class="radio-group">
+            <label><input type="radio" name="flow" value="upload" checked /> Subir modelo</label>
+            <label><input type="radio" name="flow" value="questionnaire" /> Cuestionario</label>
+          </div>
+          <label class="muted">Técnicas XAI</label>
+          <div id="techniques" class="checkbox-list"></div>
+          <button id="createModelBtn">Guardar modelo</button>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="card">
+          <h2>Casos por persona</h2>
+          <div class="grid-2">
+            <input id="personName" placeholder="Nombre de la persona evaluada" />
+            <input id="personId" placeholder="DNI/NIF u otro identificador" />
+          </div>
+          <div class="grid-2">
+            <select id="caseModelSelect"></select>
+            <input id="decision" placeholder="Decisión (aprobado / denegado...)" />
+          </div>
+          <textarea id="caseInputs" rows="3" placeholder="Inputs por persona. Ej: ingresos=1300, deuda=900, historial_pagos=medio"></textarea>
+          <button id="createCaseBtn">Guardar caso</button>
+        </section>
+
+        <section class="card">
+          <h2>Historial</h2>
+          <div class="history-layout">
+            <div>
+              <h3>Modelos</h3>
+              <ul id="modelsList" class="list"></ul>
+            </div>
+            <div>
+              <h3>Casos</h3>
+              <ul id="casesList" class="list"></ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Generar justificación por persona</h2>
+          <select id="reportCaseSelect"></select>
+          <textarea id="humanOversight" rows="2" placeholder="Supervisión humana aplicada"></textarea>
+          <textarea id="highlights" rows="2" placeholder="Hallazgos o matices de explicabilidad"></textarea>
+          <button id="generateReportBtn">Generar reporte</button>
+          <pre id="reportOutput"></pre>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
