@@ -1,42 +1,29 @@
 # xai-business
 
-Aplicación full-stack para generar reportes XAI justificativos en decisiones críticas (crédito) con experiencia multi-página y salida en documento Word legible.
+Aplicación full-stack para generar reportes XAI justificativos en decisiones críticas (p. ej. crédito) con enfoque de cumplimiento EU AI Act.
 
-## Flujo de producto
+## Qué mejora esta versión
 
-1. **Login / registro** (`/login.html`).
-2. **Gestión de modelos** (`/models.html`): alta de modelo, tipo de modelo y selección de técnicas XAI.
-3. **Casos y reportes** (`/cases.html`): registrar decisión por persona e inputs concretos, generar reporte y descargar `.doc`.
+- Interfaz moderna tipo workspace (sidebar + panel principal).
+- Gestión por usuario: cada persona puede tener sus modelos y sus casos.
+- Registro de casos por persona evaluada, incluyendo inputs concretos usados para justificar la decisión.
+- Generación de reporte centrado en decisión individual (persona/caso) con trazabilidad.
 
-## Catálogo XAI incorporado
+## Funcionalidades
 
-- SHAP
-- LIME
-- Counterfactual Explanations
-- PDP/ICE
-- Permutation Feature Importance
-- Anchors
-
-## Backend API
-
-- `POST /api/login`
-- `POST /api/users`
-- `GET/POST /api/models?userId=...`
-- `GET/POST /api/cases?userId=...`
-- `GET /api/xai-models`
-- `POST /api/report` (genera narrativa + documento)
-- `GET /api/reports/:reportId/doc` (descarga Word)
-
-## Nota sobre IA generativa
-
-El backend deja una función preparada para narrativa asistida por IA (`composeReportNarrative`).
-Sin `OPENAI_API_KEY`, usa una plantilla robusta y legible automáticamente.
+- `GET /api/techniques`: catálogo de técnicas XAI.
+- `GET/POST /api/users`: gestión de usuarios propietarios de modelos/casos.
+- `GET/POST /api/models`: modelos por usuario.
+- `GET/POST /api/cases`: decisiones por persona evaluada.
+- `POST /api/report`: genera el reporte justificativo para un caso específico.
 
 ## Ejecutar
 
 ```bash
 npm start
 ```
+
+Abrir `http://localhost:3000`.
 
 ## Tests
 

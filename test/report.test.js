@@ -1,14 +1,17 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildStructuredReport, renderReportDoc } = require('../server');
+const { buildReport } = require('../server');
 
-function fixture(overrides = {}) {
+function createFixture(overrides = {}) {
   return {
-    user: { id: 'usr-1', fullName: 'Ana Pérez', email: 'ana@example.com' },
+    user: {
+      id: 'usr-1',
+      fullName: 'Ana Pérez',
+      email: 'ana@example.com'
+    },
     model: {
       id: 'mdl-1',
       name: 'credit-model',
-      modelType: 'xgboost',
       objective: 'Evaluar crédito',
       techniques: ['shap']
     },
@@ -23,25 +26,31 @@ function fixture(overrides = {}) {
       ],
       createdAt: '2026-02-19T10:00:00.000Z'
     },
-    payload: { flow: 'upload' },
+    payload: {
+      flow: 'upload'
+    },
     ...overrides
   };
 }
 
-test('buildStructuredReport includes individual inputs and techniques', () => {
-  const report = buildStructuredReport(fixture());
+test('buildReport includes per-person data and model context', () => {
+  const report = buildReport(createFixture());
+
   assert.equal(report.subject.personName, 'Luis Martín');
-  assert.equal(report.modelContext.modelType, 'xgboost');
+  assert.equal(report.modelContext.modelName, 'credit-model');
   assert.deepEqual(report.explainability.perPersonInputs, ['ingresos: 1100', 'deuda: 950']);
-  assert.deepEqual(report.explainability.techniques, ['shap']);
+  assert.equal(report.explainability.techniques[0], 'shap');
 });
 
-test('renderReportDoc outputs readable document sections', () => {
-  const report = buildStructuredReport(fixture());
-  const doc = renderReportDoc(report, 'Narrativa de prueba');
+test('buildReport falls back to declarative mode for questionnaire flow', () => {
+  const report = buildReport(
+    createFixture({
+      model: null,
+      payload: { flow: 'questionnaire' }
+    })
+  );
 
-  assert.match(doc, /Reporte justificativo XAI/);
-  assert.match(doc, /Narrativa de justificación/);
-  assert.match(doc, /Luis Martín/);
-  assert.match(doc, /Narrativa de prueba/);
+  assert.equal(report.modelContext.modelName, 'Modelo no especificado');
+  assert.equal(report.explainability.techniques[0], 'Documentación declarativa');
+  assert.match(report.limitations[0], /declarativa/i);
 });
