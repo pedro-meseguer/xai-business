@@ -1,0 +1,16 @@
+INFORME DE EXPLICACIÓN (Borrador)
+
+Identificador de decisión: {{ facts.decision_id }}
+Fecha/hora: {{ facts.occurred_at }}
+
+Modelo:
+- ID: {{ facts.model.model_id }}
+- Versión: {{ facts.model.model_version }}
+
+Decisión final:
+{{ facts.final_decision }}
+
+Factores principales (según el sistema):
+{% for f in explanation.main_factors %}
+- {{ f.feature }} ({{ f.direction }}, importancia: {{ f.importance }})
+{% endfor %}
