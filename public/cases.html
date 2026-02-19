@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casos y reportes · XAI Workspace</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <strong>XAI Workspace</strong>
+    <nav>
+      <a href="models.html">Modelos</a>
+      <a href="cases.html">Casos y reportes</a>
+      <button id="logoutBtn" class="link-btn">Salir</button>
+    </nav>
+  </header>
+
+  <main class="container two-col">
+    <section class="card">
+      <h1>Nuevo caso por persona</h1>
+      <select id="modelSelect"></select>
+      <input id="personName" placeholder="Nombre de la persona" />
+      <input id="personIdentifier" placeholder="Identificador (DNI/NIF)" />
+      <input id="decision" placeholder="Decisión final" />
+      <textarea id="inputs" rows="3" placeholder="inputs del caso: ingresos=1000,deuda=900,impagos=2"></textarea>
+      <button id="saveCaseBtn">Guardar caso</button>
+      <p id="status" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <h2>Generar reporte (Word)</h2>
+      <select id="caseSelect"></select>
+      <textarea id="highlights" rows="2" placeholder="Hallazgos XAI"></textarea>
+      <textarea id="humanOversight" rows="2" placeholder="Supervisión humana"></textarea>
+      <button id="generateBtn">Generar reporte</button>
+      <a id="downloadDoc" class="hidden" target="_blank">Descargar documento Word</a>
+      <div id="preview" class="preview"></div>
+    </section>
+  </main>
+  <script src="cases.js"></script>
+</body>
+</html>

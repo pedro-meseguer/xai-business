@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modelos · XAI Workspace</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <strong>XAI Workspace</strong>
+    <nav>
+      <a href="models.html">Modelos</a>
+      <a href="cases.html">Casos y reportes</a>
+      <button id="logoutBtn" class="link-btn">Salir</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1>Subir / registrar modelo</h1>
+      <input id="modelName" placeholder="Nombre del modelo" />
+      <input id="modelType" placeholder="Tipo (xgboost, random-forest, red-neuronal...)" />
+      <input id="modelObjective" placeholder="Objetivo (ej: scoring de crédito)" />
+      <input id="modelInputs" placeholder="Variables: edad, ingresos, deuda" />
+      <div class="radio-group">
+        <label><input type="radio" name="flow" value="upload" checked/> Subida de modelo</label>
+        <label><input type="radio" name="flow" value="questionnaire"/> Modo cuestionario</label>
+      </div>
+      <h3>Técnicas XAI disponibles</h3>
+      <div id="xaiCatalog" class="catalog"></div>
+      <button id="saveModelBtn">Guardar modelo</button>
+      <p id="status" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <h2>Mis modelos</h2>
+      <ul id="modelsList" class="list"></ul>
+    </section>
+  </main>
+  <script src="models.js"></script>
+</body>
+</html>

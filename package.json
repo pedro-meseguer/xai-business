@@ -1,0 +1,11 @@
+{
+  "name": "xai-business",
+  "version": "0.1.0",
+  "description": "MVP app to generate XAI compliance reports for critical decisions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
